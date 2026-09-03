@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SentinelProof | Security Evidence Integrity</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #08110d;
+    color: #eaf5ee;
+    min-height: 100vh;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 22px 8%;
+    border-bottom: 1px solid #1e3d2d;
+    background: #0a1510;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #62f6a7;
+}
+
+.logo span {
+    color: white;
+}
+
+.badge {
+    font-size: 12px;
+    color: #9ab8a7;
+    border: 1px solid #28523b;
+    padding: 7px 12px;
+    border-radius: 20px;
+}
+
+.hero {
+    padding: 70px 10%;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 6vw, 70px);
+    max-width: 850px;
+    line-height: 1.05;
+}
+
+.hero h1 span {
+    color: #62f6a7;
+}
+
+.hero p {
+    color: #aabbb1;
+    max-width: 700px;
+    line-height: 1.7;
+    margin-top: 22px;
+    font-size: 17px;
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.tech-tags span {
+    border: 1px solid #28523b;
+    padding: 8px 13px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #9dd9b7;
+}
+
+.demo {
+    padding: 20px 10% 80px;
+    max-width: 1100px;
+    margin: auto;
+}
+
+.card {
+    background: #0d1b14;
+    border: 1px solid #1e3d2d;
+    border-radius: 18px;
+    padding: 30px;
+}
+
+.card h2 {
+    margin-bottom: 10px;
+}
+
+.card p {
+    color: #9eb1a6;
+    line-height: 1.6;
+    margin-bottom: 25px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #b7c9be;
+    font-size: 14px;
+}
+
+input, textarea {
+    width: 100%;
+    background: #08110d;
+    border: 1px solid #28523b;
+    color: white;
+    padding: 13px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+textarea {
+    min-height: 140px;
+    resize: vertical;
+}
+
+button {
+    width: 100%;
+    padding: 14px;
+    background: #62f6a7;
+    color: #07100b;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+.result {
+    background: #08110d;
+    border: 1px solid #28523b;
+    padding: 20px;
+    border-radius: 10px;
+    min-height: 100%;
+}
+
+.result h3 {
+    color: #62f6a7;
+    margin-bottom: 18px;
+}
+
+.hash {
+    font-family: monospace;
+    font-size: 13px;
+    color: #9dd9b7;
+    word-break: break-all;
+    background: #07100b;
+    padding: 12px;
+    border-radius: 6px;
+    margin-top: 10px;
+}
+
+.status {
+    margin-top: 18px;
+    padding: 12px;
+    border-radius: 7px;
+    font-weight: bold;
+}
+
+.success {
+    background: #123d27;
+    color: #78f5ac;
+}
+
+.warning {
+    background: #3a2412;
+    color: #ffca7a;
+}
+
+.verify {
+    margin-top: 20px;
+    background: transparent;
+    color: #62f6a7;
+    border: 1px solid #62f6a7;
+}
+
+.architecture {
+    padding: 80px 10%;
+    background: #07100b;
+}
+
+.architecture-inner {
+    max-width: 1100px;
+    margin: auto;
+}
+
+.architecture h2 {
+    font-size: 32px;
+    margin-bottom: 15px;
+}
+
+.architecture p {
+    color: #9eb1a6;
+    max-width: 700px;
+    line-height: 1.7;
+}
+
+.flow {
+    margin-top: 35px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    align-items: center;
+}
+
+.flow-box {
+    background: #0d1b14;
+    border: 1px solid #28523b;
+    padding: 18px;
+    border-radius: 10px;
+    min-width: 160px;
+    text-align: center;
+}
+
+.arrow {
+    color: #62f6a7;
+    font-size: 22px;
+}
+
+.note {
+    margin-top: 30px;
+    padding: 18px;
+    border-left: 3px solid #62f6a7;
+    background: #0d1b14;
+    color: #b7c9be;
+    line-height: 1.6;
+}
+
+footer {
+    padding: 30px 10%;
+    text-align: center;
+    color: #60756a;
+    font-size: 13px;
+}
+
+@media(max-width: 750px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .flow {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .arrow {
+        text-align: center;
+        transform: rotate(90deg);
+    }
+
+    nav {
+        padding: 18px 6%;
+    }
+
+    .hero, .demo {
+        padding-left: 6%;
+        padding-right: 6%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+    <div class="logo">Sentinel<span>Proof</span></div>
+    <div class="badge">Web3 Security Integrity Prototype</div>
+</nav>
+
+<section class="hero">
+    <h1>Make security evidence <span>tamper-evident.</span></h1>
+
+    <p>
+        SentinelProof explores how cryptographic hashing and blockchain-based
+        verification can help preserve the integrity of cybersecurity incident evidence.
+        Generate a SHA-256 fingerprint and verify whether evidence has changed.
+    </p>
+
+    <div class="tech-tags">
+        <span>Cybersecurity</span>
+        <span>SHA-256</span>
+        <span>Web3 Architecture</span>
+        <span>Evidence Integrity</span>
+        <span>Blockchain Verification</span>
+    </div>
+</section>
+
+<section class="demo">
+
+<div class="card">
+
+<h2>Live Evidence Integrity Demo</h2>
+
+<p>
+Create a cryptographic fingerprint of an incident record. Any modification to
+the evidence produces a different SHA-256 hash.
+</p>
+
+<div class="grid">
+
+<div>
+
+<label>Incident ID</label>
+<input id="incidentId" placeholder="INC-2026-001">
+
+<label>Severity</label>
+<input id="severity" placeholder="HIGH">
+
+<label>Evidence / Incident Details</label>
+
+<textarea id="evidence"
+placeholder="Example: Suspicious process activity detected on endpoint..."></textarea>
+
+<button onclick="generateProof()">
+Generate Evidence Proof
+</button>
+
+<button class="verify" onclick="verifyProof()">
+Verify Evidence Integrity
+</button>
+
+</div>
+
+<div class="result">
+
+<h3>Evidence Record</h3>
+
+<div id="output">
+
+<p style="color:#60756a">
+Generate a proof to create a cryptographic evidence record.
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="architecture">
+
+<div class="architecture-inner">
+
+<h2>Hybrid Web3 Architecture</h2>
+
+<p>
+SentinelProof uses a hybrid model where sensitive security evidence remains
+off-chain while its cryptographic fingerprint can be anchored to a blockchain
+or smart contract for immutable verification.
+</p>
+
+<div class="flow">
+
+<div class="flow-box">
+Security Incident
+</div>
+
+<div class="arrow">→</div>
+
+<div class="flow-box">
+Evidence Normalization
+</div>
+
+<div class="arrow">→</div>
+
+<div class="flow-box">
+SHA-256 Hash
+</div>
+
+<div class="arrow">→</div>
+
+<div class="flow-box">
+Blockchain Anchor Layer
+</div>
+
+<div class="arrow">→</div>
+
+<div class="flow-box">
+Integrity Verification
+</div>
+
+</div>
+
+<div class="note">
+
+<strong>Prototype Status:</strong>
+The SHA-256 generation and integrity verification demonstrated above are fully
+functional in the browser. Blockchain anchoring is represented as the next
+integration layer, where evidence hashes can be stored through a smart contract
+on a testnet.
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+SentinelProof · Exploring Web3 for Cybersecurity Evidence Integrity
+</footer>
+
+<script>
+
+let originalHash = null;
+
+async function sha256(message) {
+
+    const msgBuffer =
+        new TextEncoder().encode(message);
+
+    const hashBuffer =
+        await crypto.subtle.digest(
+            "SHA-256",
+            msgBuffer
+        );
+
+    const hashArray =
+        Array.from(
+            new Uint8Array(hashBuffer)
+        );
+
+    return hashArray
+        .map(b =>
+            b.toString(16)
+             .padStart(2, "0")
+        )
+        .join("");
+
+}
+
+async function generateProof() {
+
+    const incidentId =
+        document.getElementById("incidentId").value;
+
+    const severity =
+        document.getElementById("severity").value;
+
+    const evidence =
+        document.getElementById("evidence").value;
+
+    if (!incidentId ||
+        !severity ||
+        !evidence) {
+
+        alert(
+            "Please fill all incident details."
+        );
+
+        return;
+    }
+
+    const record =
+        incidentId +
+        "|" +
+        severity +
+        "|" +
+        evidence;
+
+    originalHash =
+        await sha256(record);
+
+    document
+        .getElementById("output")
+        .innerHTML = `
+
+        <p><strong>Incident:</strong>
+        ${incidentId}</p>
+
+        <p><strong>Severity:</strong>
+        ${severity}</p>
+
+        <p style="margin-top:18px">
+        <strong>SHA-256 Evidence Hash</strong>
+        </p>
+
+        <div class="hash">
+        ${originalHash}
+        </div>
+
+        <div class="status success">
+        ✓ Evidence Proof Generated
+        </div>
+
+        <p style="margin-top:18px;
+        color:#9eb1a6;
+        font-size:13px">
+
+        Current implementation:
+        Cryptographic integrity verification.
+        Blockchain anchoring is the next
+        integration layer.
+
+        </p>
+
+        `;
+
+}
+
+async function verifyProof() {
+
+    if (!originalHash) {
+
+        alert(
+            "Generate an evidence proof first."
+        );
+
+        return;
+
+    }
+
+    const incidentId =
+        document.getElementById("incidentId").value;
+
+    const severity =
+        document.getElementById("severity").value;
+
+    const evidence =
+        document.getElementById("evidence").value;
+
+    const record =
+        incidentId +
+        "|" +
+        severity +
+        "|" +
+        evidence;
+
+    const currentHash =
+        await sha256(record);
+
+    if (
+        currentHash === originalHash
+    ) {
+
+        document
+            .getElementById("output")
+            .innerHTML += `
+
+            <div class="status success">
+            ✓ VERIFIED — Evidence has not changed.
+            </div>
+
+            `;
+
+    }
+
+    else {
+
+        document
+            .getElementById("output")
+            .innerHTML += `
+
+            <div class="status warning">
+            ⚠ TAMPERING DETECTED —
+            Evidence no longer matches
+            the original cryptographic proof.
+            </div>
+
+            `;
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
